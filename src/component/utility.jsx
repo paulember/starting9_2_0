@@ -1,6 +1,5 @@
 import React from 'react';
 import {getVennGame, getVennGameFromGIT} from "./dataGames";
-import { dataGames } from '../data/games';
 
 function getLocalStorageItem(key) {
   let value = localStorage.getItem(key);

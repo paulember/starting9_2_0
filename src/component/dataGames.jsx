@@ -1,11 +1,7 @@
-import { dataGames } from "../data/games";
 
 function getVennGame(game) {  
   return dataGames.find((vennSet) => vennSet.id == game) || null;
 }
-
-
-
 
 function getVennGameFromGIT(game, dataGames_24) {  
   if (!Array.isArray(dataGames_24)) {

@@ -4,7 +4,6 @@ import React from "react";
 import "./styles.css";
 
 import { useState, useEffect } from "react";
-import { Analytics } from "@vercel/analytics/react";
 
 import {
   parseAdd,
@@ -796,7 +795,6 @@ export default function App() {
           </b>
         </h2>
       </Modal>
-      <Analytics />
     </div>
   );
 }
