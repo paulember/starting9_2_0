@@ -163,6 +163,19 @@ table {
   border: 1px solid black;
 }
 
+.td-posNewSelected {
+  height: 15px;
+  background-color: lightgray;
+  font-size: 15px;
+
+  font-weight: bolder;
+  color: blueviolet;
+  text-shadow: -2px -2px 0 white,
+  2px -2px 0 white,
+  -2px 2px 0 white,
+  2px 2px 0 white;
+}
+
 .td-posSelected {
   height: 15px;
   background-color: lightgray;
