@@ -13,14 +13,10 @@ import {
   getOutType,
   updateClass,
   parseSubtract,
+  getMostRecentMondayWW,
 } from "./component/utility";
 import { getTeamData } from "./component/utilityUEGame";
-import { getVennGame, getVennGameFromGIT } from "./component/dataGames";
-import {
-  SeriesDataUtility,
-  updateSeries,
-  getSeriesData,
-} from "./component/seriesDataUtility";
+import { getVennGameFromGIT } from "./component/dataGames";
 
 import BoxRHE from "./component/boxRHE";
 import useFetchTeams from "./component/useFetchTeams";
@@ -29,7 +25,6 @@ import useFetchGames from "./component/useFetchGames";
 import AtBatHistoryDiv from "./component/atbatHist";
 import SplashDiv from "./component/splash";
 import LineupTable from "./component/lineupTable";
-import SeriesDataComponent from "./component/seriesDataRender";
 import StreakStats from "./component/streakStats";
 
 import Dropdown from "./dropDown";
@@ -41,6 +36,7 @@ function handleClickHelp() {
 
 export default function App() {
   const gameTotal = 9;
+  const mostRecentMonday = getMostRecentMondayWW();
 
   const [lineupColorAway, setLineupColorAway] = useState("white");
   const [lineupColorHome, setLineupColorHome] = useState("white");
@@ -88,13 +84,6 @@ export default function App() {
   const [LSStreakLongest, setLSStreakLongest] = useState(0);
   const [LSStreakBreaker, setLSStreakBreaker] = useState("none");
 
-  const [LSSeriesHomeRuns, setLSSeriesHomeRuns] = useState(0);
-  const [LSSeriesTriples, setLSSeriesTriples] = useState(0);
-  const [LSSeriesDoubles, setLSSeriesDoubles] = useState(0);
-  const [LSSeriesSingles, setLSSeriesSingles] = useState(0);
-  const [LSSeriesAtBats, setLSSeriesAtBats] = useState(0);
-  const [LSSeriesRBI, setLSSeriesRBI] = useState(0);
-
   const [LSSnapGameCount, setLSSnapGameCount] = useState(0);
   const [LSSnapHomeRuns, setLSSnapHomeRuns] = useState(0);
   const [LSSnapTriples, setLSSnapTriples] = useState(0);
@@ -103,16 +92,13 @@ export default function App() {
   const [LSSnapAtBats, setLSSnapAtBats] = useState(0);
   const [LSSnapRBI, setLSSnapRBI] = useState(0);
 
-  const [LSSeriesLastGame, setLSSeriesLastGame] = useState(0);
-  const [LSSeriesGameCount, setLSSeriesGameCount] = useState(0);
-
   const subTotHits = LSTriples + LSDoubles;
 
   const [processPosition, setProcessPosition] = useState("");
   const [processTeam, setProcessTeam] = useState("");
 
   const teamNames = useFetchTeams();
-  const dataGames_24 = useFetchGames();
+  const dataGames_24 = useFetchGames(mostRecentMonday);
 
   const [posButtonDisabled, setPosButtonDisabled] = useState(false);
   const appendAtBatHistory = (processTeam, ABResult) => {
@@ -227,30 +213,8 @@ export default function App() {
     setLSSnapDoubles(localStorage.getItem("snapDoubles"));
     setLSSnapSingles(localStorage.getItem("snapSingles"));
     setLSSnapRBI(localStorage.getItem("snapRBI"));
-
-    /*   setLSSeriesHomeRuns(getLocalStorageItem("SeriesHomeRuns"));
-    setLSSeriesTriples(getLocalStorageItem("SeriesTriples"));
-    setLSSeriesDoubles(getLocalStorageItem("SeriesDoubles"));
-    setLSSeriesSingles(getLocalStorageItem("SeriesSingles"));
-    setLSSeriesAtBats(getLocalStorageItem("SeriesAtBats"));
-    setLSSeriesRBI(getLocalStorageItem("SeriesRBI"));
-
-
-*/
   }, []);
-  /*
-  const [careerData, setCareerData]  = useState({
-    SeriesComplete: true,
-    SeriesHomeRuns: LSHomeRuns,
-    SeriesTriples: localStorage.getItem("Triples"),
-    SeriesDoubles: localStorage.getItem("Doubles"),
-    SeriesSingles: localStorage.getItem("Singles"),
-    SeriesAtBats: localStorage.getItem("AtBats"),
-    SeriesRBI: localStorage.getItem("RBI"),
-    SeriesGameCount: localStorage.getItem("GameCount"),
-    SeriesLastGame: localStorage.getItem("LastGame") 
-  });
-*/
+
   function getHitType() {
     let rando = randomNum(0, 99);
 
@@ -514,19 +478,6 @@ export default function App() {
       localStorage.setItem("GameCount", LSGameCount);
       localStorage.setItem("StreakCurrent", LSStreakCurrent);
       localStorage.setItem("StreakLongest", LSStreakLongest.toString());
-
-      /*  setCareerData({
-        SeriesComplete: true,
-        SeriesHomeRuns: localStorage.getItem("HomeRuns"),
-        SeriesTriples: localStorage.getItem("Triples"),
-        SeriesDoubles: localStorage.getItem("Doubles"),
-        SeriesSingles: localStorage.getItem("Singles"),
-        SeriesAtBats: localStorage.getItem("AtBats"),
-        SeriesRBI: localStorage.getItem("RBI"),
-        SeriesGameCount: localStorage.getItem("GameCount"),
-        SeriesLastGame: localStorage.getItem("LastGame") 
-      });MostRe
-*/
     }
   }, [isModalOpen]);
 
@@ -781,7 +732,7 @@ export default function App() {
         <div>
           *** Try our Wine Tasting Game{" "}
           <a
-            href="https://sofa-somm.vercel.app/"
+            href="https://sofasomm.vercel.app/"
             target="_blank"
             rel="noreferrer"
           >

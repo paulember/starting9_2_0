@@ -1,22 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-function useFetchGames() {
+function useFetchGames(mostRecentMonday) {
   const [gamesGIT, setGamesGIT] = useState([]);
 
   useEffect(() => {
-    fetch('https://raw.githubusercontent.com/paulember/paulember.github.io/main/src/data/games.json')
-      .then(response => {
+    const gamesFile =
+      "https://raw.githubusercontent.com/paulember/paulember.github.io/main/src/data/starting9/games" +
+      mostRecentMonday +
+      ".json";
+
+    fetch(gamesFile)
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('useFetchGames: Network response was not ok');
+          throw new Error("useFetchGames: Network response was not ok");
         }
         return response.json();
       })
-      .then(dataGamesGIT => {
+      .then((dataGamesGIT) => {
         setGamesGIT(dataGamesGIT);
-        console.log("useFetchGames: Fetch of GamesGIT completed at:", new Date(), " data: ", dataGamesGIT); 
+        console.log(
+          "useFetchGames: Fetch of GamesGIT completed at:",
+          new Date(),
+          " data: ",
+          dataGamesGIT
+        );
       })
-      .catch(error => {
-        console.error('useFetchGames: Error fetching data:', error);
+      .catch((error) => {
+        console.error("useFetchGames: Error fetching data:", error);
       });
   }, []);
 
