@@ -1,12 +1,11 @@
 import React from "react";
+import qrImage from "../component/QRStarting9.png";
 
 const QRCodeDiv = () => {
   return (
     <div>
-      <img
-        src={require("../data/QRStarting9.png")}
-        alt="https://starting9.vercel.app/"
-      />
+      <img src={qrImage} 
+      alt="https://starting9.vercel.app/" />
     </div>
   );
 };
@@ -107,6 +106,7 @@ function SplashDiv({ game }) {
         </p>
         <p>After 5 Pitches you will move on to the next game. </p>
         <h2> Play Ball!!! </h2>
+        <QRCodeDiv />
         <p></p>
         <b>Sources:</b> &nbsp;
         <div>
