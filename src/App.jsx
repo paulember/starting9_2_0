@@ -622,11 +622,6 @@ export default function App() {
             <td>{seriesSLG}</td>
           </tr>
 
-          <tr>
-            <td> mostRecentMondayWW {mostRecentMondayWW} </td>
-            <td> julianSeriesCompletedWW {julianSeriesCompletedWW} </td>
-            <td> game {game} </td>
-          </tr>
           <tr></tr>
 
           <StreakStats
@@ -634,6 +629,13 @@ export default function App() {
             streakLongest={LSStreakLongest}
             streakBreaker={LSStreakBreaker}
           />
+        </table>
+        <table class="statTable td-statBox  alignRight">
+          <tr>
+            <td> ###prevMON {mostRecentMondayWW} </td>
+            <td> #lastComp {julianSeriesCompletedWW} </td>
+            <td> #game {game} </td>
+          </tr>
         </table>
         Series: {seriesName}
         <p></p>
