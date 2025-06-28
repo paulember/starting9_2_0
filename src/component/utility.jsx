@@ -1,4 +1,3 @@
-import React from "react";
 import { getVennGameFromGIT } from "./dataGames";
 
 function getLocalStorageItem(key) {
@@ -109,7 +108,14 @@ function parseSubtract(a, b) {
   return a - b;
 }
 
-function getMostRecentMondayWW() {
+function getJulianDate(date) {
+  const startOfYear = new Date(date.getFullYear(), 0, 1);
+  const diff = date - startOfYear;
+  const dayOfYear = Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1;
+  return dayOfYear;
+}
+
+function getMostRecentMondayJulian() {
   const now = new Date();
 
   // Convert to New York Time (America/New_York)
@@ -124,26 +130,114 @@ function getMostRecentMondayWW() {
 
   // Get most recent Monday
   const day = nyTime.getDay(); // 0 = Sunday
-  const offset = (day + 6) % 7; // days to subtract to get to Monday
+  const offset = (day + 6) % 7; // how many days back to Monday
   nyTime.setDate(nyTime.getDate() - offset);
 
-  // Compute ISO week number
-  const monday = new Date(nyTime.getFullYear(), nyTime.getMonth(), nyTime.getDate());
+  const year = nyTime.getFullYear();
 
-  // ISO week calculation (based on ISO 8601: week starts Monday, week 1 has Jan 4)
-  const jan4 = new Date(monday.getFullYear(), 0, 4);
+  // Calculate Julian day: days since Jan 1 of this year
+  const jan1 = new Date(year, 0, 1);
+  const julian = Math.floor((nyTime - jan1) / (1000 * 60 * 60 * 24)) + 1;
+
+  return `${year}_${String(julian).padStart(3, "0")}`;
+}
+
+function getMondayWWFromJulian(julianStr) {
+  const [yearStr, julianStrNum] = julianStr.split("_");
+  const year = parseInt(yearStr, 10);
+  const julianDay = parseInt(julianStrNum, 10);
+
+  // Create a date from year and julian day
+  const date = new Date(year, 0); // Jan 1 of given year
+  date.setDate(julianDay); // Set to the julian day
+
+  // Calculate ISO week number
+  const jan4 = new Date(year, 0, 4);
   const jan4Day = jan4.getDay() || 7; // convert Sunday (0) to 7
   const weekStart = new Date(jan4);
   weekStart.setDate(jan4.getDate() - (jan4Day - 1)); // Monday of week 1
 
-  const diffMs = monday - weekStart;
+  const diffMs = date - weekStart;
   const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
-
   const weekNumber = Math.floor(diffDays / 7) + 1;
 
   return weekNumber;
 }
 
+function addDaysToJulian(julianStr, daysToAdd) {
+  const [yearStr, dayStr] = julianStr.split("_");
+  const year = parseInt(yearStr, 10);
+  const day = parseInt(dayStr, 10);
+
+  // Create a Date from Jan 1 + (day - 1)
+  const date = new Date(year, 0, day);
+  date.setDate(date.getDate() + daysToAdd);
+
+  const newYear = date.getFullYear();
+  const startOfNewYear = new Date(newYear, 0, 1);
+  const newJulianDay =
+    Math.floor((date - startOfNewYear) / (1000 * 60 * 60 * 24)) + 1;
+
+  return `${newYear}_${String(newJulianDay).padStart(3, "0")}`;
+}
+
+function getTimeUntilDailyReset() {
+  const now = new Date();
+  const nextReset = new Date(
+    Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate() + 1, // next day
+      0,
+      0,
+      0,
+      0 // at 00:00:00 UTC
+    )
+  );
+
+  const diff = nextReset - now;
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  return { hours, minutes, seconds };
+}
+
+function alertCountDown() {
+  const currentTime = new Date();
+
+  let timeLeftSS = 0;
+  let timeLeftMM = 0;
+  let timeLeftHH = 0;
+
+  function pad(value) {
+    return value.toString().padStart(2, "0");
+  }
+
+  let time = getTimeUntilDailyReset();
+  const countdown = setInterval(() => {
+    time = getTimeUntilDailyReset();
+    timeLeftSS = pad(time.seconds);
+    timeLeftMM = pad(time.minutes);
+    timeLeftHH = pad(time.hours);
+  }, 5000);
+
+  const hh = pad(currentTime.getHours());
+  const mm = pad(currentTime.getMinutes());
+  const ss = pad(currentTime.getSeconds());
+
+  let countDownText = "Today's Tasting is completed\n \n";
+  countDownText += "Next Tasting \n \n";
+  countDownText += `${timeLeftHH} : ${timeLeftMM} : ${timeLeftSS}`;
+  countDownText += " \n \n";
+  countDownText += "Today's Stats \n \n";
+  countDownText += "Average Score: " + "###stat1###";
+  countDownText += " \n \n";
+  countDownText += "Total Notes: " + "###stat1###";
+  countDownText += " \n \n";
+  countDownText += "Bathazar: " + "###stat1###";
+  alert(countDownText);
+}
 
 export {
   getLocalStorageItem,
@@ -154,5 +248,9 @@ export {
   getOutType,
   updateClass,
   parseSubtract,
-  getMostRecentMondayWW,
+  getJulianDate,
+  getMondayWWFromJulian,
+  getMostRecentMondayJulian,
+  addDaysToJulian,
+  alertCountDown,
 };

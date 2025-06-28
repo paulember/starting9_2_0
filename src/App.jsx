@@ -13,7 +13,11 @@ import {
   getOutType,
   updateClass,
   parseSubtract,
-  getMostRecentMondayWW,
+  getJulianDate,
+  getMondayWWFromJulian,
+  alertCountDown,
+  addDaysToJulian,
+  getMostRecentMondayJulian,
 } from "./component/utility";
 import { getTeamData } from "./component/utilityUEGame";
 import { getVennGameFromGIT } from "./component/dataGames";
@@ -36,7 +40,18 @@ function handleClickHelp() {
 
 export default function App() {
   const gameTotal = 9;
-  const mostRecentMonday = getMostRecentMondayWW();
+
+  const julianDate = new Date().getFullYear() + "_" + getJulianDate(new Date());
+
+  const julianSeriesCompletedWW =
+    localStorage.getItem("julianSeriesCompletedWW") ?? 0;
+
+  const julianCurrentSeries = getMostRecentMondayJulian(julianDate);
+  const julianNextSeries = addDaysToJulian(
+    getMostRecentMondayJulian(julianDate),
+    7
+  );
+  const mostRecentMondayWW = getMondayWWFromJulian(julianDate);
 
   const [lineupColorAway, setLineupColorAway] = useState("white");
   const [lineupColorHome, setLineupColorHome] = useState("white");
@@ -92,13 +107,11 @@ export default function App() {
   const [LSSnapAtBats, setLSSnapAtBats] = useState(0);
   const [LSSnapRBI, setLSSnapRBI] = useState(0);
 
-  const subTotHits = LSTriples + LSDoubles;
-
   const [processPosition, setProcessPosition] = useState("");
   const [processTeam, setProcessTeam] = useState("");
 
   const teamNames = useFetchTeams();
-  const dataGames_24 = useFetchGames(mostRecentMonday);
+  const dataGames_24 = useFetchGames(mostRecentMondayWW);
 
   const [posButtonDisabled, setPosButtonDisabled] = useState(false);
   const appendAtBatHistory = (processTeam, ABResult) => {
@@ -163,10 +176,17 @@ export default function App() {
     .toFixed(3)
     .replace(/^0+/, "");
 
+  const contestWon = "⚾";
+  const contestLoss = "⬜";
+
+  const share_WL_line =
+    contestWon.repeat(seriesHits) + contestLoss.repeat(seriesLoss);
+  const share_HR = contestWon.repeat(seriesHomeRuns);
+
   const shareLink = `https://bsky.app/intent/compose?text=My%20Starting9%20Stats->
-%20Series W-L%3A%20${encodeURIComponent(seriesHits)}-${encodeURIComponent(
-    seriesLoss
-  )}%2C%20HR%3A%20${encodeURIComponent(seriesHomeRuns)}%20 
+%20Series W-L ${encodeURIComponent(
+    share_WL_line
+  )}   HR%3A%20${encodeURIComponent(share_HR)}%20 
 :::Career W-L%3A%20${encodeURIComponent(totalHits)}-${encodeURIComponent(
     careerLoss
   )}
@@ -178,6 +198,9 @@ export default function App() {
   const openModal = () => {
     setIsModalOpen(true);
     setLSGameCount(parseAdd(LSGameCount, 1));
+    if (game >= 9) {
+      localStorage.setItem("julianSeriesCompletedWW", mostRecentMondayWW);
+    }
   };
 
   const closeModal = () => {
@@ -281,13 +304,21 @@ export default function App() {
   }
 
   function handleClickNext() {
-    setLSLastGame(localStorage.getItem("LastGame"));
-    setGame(localStorage.getItem("LastGame"));
-    if (game >= gameTotal) {
+    if (julianSeriesCompletedWW == mostRecentMondayWW) {
+      if (isModalOpen) {
+        alertCountDown();
+      } else {
+        openModal();
+      }
+    } else {
+      setLSLastGame(localStorage.getItem("LastGame"));
+      setGame(localStorage.getItem("LastGame"));
+      if (game >= gameTotal) {
+        setGame((prevGame) => (prevGame % gameTotal) + 1);
+        window.location.href = window.location.href;
+      }
       setGame((prevGame) => (prevGame % gameTotal) + 1);
-      window.location.href = window.location.href;
     }
-    setGame((prevGame) => (prevGame % gameTotal) + 1);
   }
 
   useEffect(() => {
@@ -591,7 +622,11 @@ export default function App() {
             <td>{seriesSLG}</td>
           </tr>
 
-          <tr></tr>
+          <tr>
+            <td> mostRecentMondayWW {mostRecentMondayWW} </td>
+            <td> julianSeriesCompletedWW {julianSeriesCompletedWW} </td>
+            <td> game {game} </td>
+          </tr>
           <tr></tr>
 
           <StreakStats
