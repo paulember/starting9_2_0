@@ -4,8 +4,7 @@ import qrImage from "../component/QRStarting9.png";
 const QRCodeDiv = () => {
   return (
     <div>
-      <img src={qrImage} 
-      alt="https://starting9.vercel.app/" />
+      <img src={qrImage} alt="https://starting9.vercel.app/" />
     </div>
   );
 };
@@ -45,6 +44,17 @@ function handleClearClick() {
     localStorage.removeItem("StreakBreaker");
 
     clearSeries();
+  } else {
+  }
+}
+
+function handleClearDateClick() {
+  if (
+    confirm(
+      "Press OK to Clear Your SofaSomm Cache.\n \n THIS WILL REMOVE ALL RECORDS OF YOUR PREVIOUS TASTINGS. \n \n Press Cancel to return to the Splash Screen. "
+    )
+  ) {
+    localStorage.removeItem("julianSeriesCompletedWW", 0);
   } else {
   }
 }
@@ -180,8 +190,6 @@ function SplashDiv({ game }) {
           </b>
         </h2>
         <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
         <button class="resetButton" onClick={handleClearClick}>
           {" "}
           CC
@@ -190,10 +198,14 @@ function SplashDiv({ game }) {
           {" "}
           CS
         </button>
+        <button class="resetButton" onClick={handleClearDateClick}>
+          {" "}
+          DT
+        </button>
       </div>
     );
   } else {
-    return null; // Return null if game is not null or 0
+    return null;
   }
 }
 
