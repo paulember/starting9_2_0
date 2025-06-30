@@ -18,6 +18,7 @@ import {
   alertCountDown,
   addDaysToJulian,
   getMostRecentMondayJulian,
+  julianToMMDDYYYY,
 } from "./component/utility";
 import { getTeamData } from "./component/utilityUEGame";
 import { getVennGameFromGIT } from "./component/dataGames";
@@ -47,9 +48,8 @@ export default function App() {
     localStorage.getItem("julianSeriesCompletedWW") ?? 0;
 
   const julianCurrentSeries = getMostRecentMondayJulian(julianDate);
-  const julianNextSeries = addDaysToJulian(
-    getMostRecentMondayJulian(julianDate),
-    7
+  const julianNextSeries = julianToMMDDYYYY(
+    addDaysToJulian(getMostRecentMondayJulian(julianDate), 8)
   );
   const mostRecentMondayWW = getMondayWWFromJulian(julianDate);
 
@@ -286,7 +286,7 @@ export default function App() {
   function handleClickNext() {
     if (julianSeriesCompletedWW == mostRecentMondayWW) {
       if (isModalOpen) {
-        alertCountDown();
+        alertCountDown(julianNextSeries);
       } else {
         openModal();
       }
@@ -777,13 +777,13 @@ export default function App() {
               </div>
             )}
           </div>
-
-          <div class={divBlockNone}>
-            <BoxRHE game={game} dataGames_24={dataGames_24} />
-            <p> </p>
-            <AtBatHistoryDiv game={game} atBatHistory={atBatHistory} />
-          </div>
-
+          {game >= 1 && (
+            <div class={divBlockNone}>
+              <BoxRHE game={game} dataGames_24={dataGames_24} />
+              <p> </p>
+              <AtBatHistoryDiv game={game} atBatHistory={atBatHistory} />
+            </div>
+          )}
           <div>
             <StatDiv />
           </div>

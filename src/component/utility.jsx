@@ -181,6 +181,23 @@ function addDaysToJulian(julianStr, daysToAdd) {
   return `${newYear}_${String(newJulianDay).padStart(3, "0")}`;
 }
 
+function julianToMMDDYYYY(julianStr) {
+  const [yearStr, dayStr] = julianStr.split("_");
+  const year = parseInt(yearStr, 10);
+  const julianDay = parseInt(dayStr, 10);
+
+  // Create a date: Jan 1 + (julianDay - 1)
+  const date = new Date(year, 0); // Jan 1
+  date.setDate(julianDay);
+
+  // Format MM/DD/YYYY
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  const yyyy = date.getFullYear();
+
+  return `${mm}/${dd}/${yyyy}`;
+}
+
 function getTimeUntilDailyReset() {
   const now = new Date();
   const nextReset = new Date(
@@ -203,11 +220,10 @@ function getTimeUntilDailyReset() {
   return { hours, minutes, seconds };
 }
 
-function alertCountDown() {
+function alertCountDown(julianNextSeries) {
   let countDownText = "This weeks games are completed\n \n";
-  countDownText += "Next Series will be on Monday \n \n";
-  countDownText += countDownText += " \n \n";
-  countDownText += "Today's Stats \n \n";
+  countDownText += "Next Series Available Monday: \n \n";
+  countDownText += julianNextSeries + "\n \n";
   countDownText += "Average Score: " + "###stat1###";
   countDownText += " \n \n";
   countDownText += "Total Notes: " + "###stat1###";
@@ -229,5 +245,6 @@ export {
   getMondayWWFromJulian,
   getMostRecentMondayJulian,
   addDaysToJulian,
+  julianToMMDDYYYY,
   alertCountDown,
 };
