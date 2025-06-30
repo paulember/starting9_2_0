@@ -176,25 +176,6 @@ export default function App() {
     .toFixed(3)
     .replace(/^0+/, "");
 
-  const contestWon = "⚾";
-  const contestLoss = "⬜";
-
-  const share_WL_line =
-    contestWon.repeat(seriesHits) + contestLoss.repeat(seriesLoss);
-  const share_HR = contestWon.repeat(seriesHomeRuns);
-
-  const shareLink = `https://bsky.app/intent/compose?text=My%20Starting9%20Stats->
-%20Series W-L ${encodeURIComponent(
-    share_WL_line
-  )}   HR%3A%20${encodeURIComponent(share_HR)}%20 
-:::Career W-L%3A%20${encodeURIComponent(totalHits)}-${encodeURIComponent(
-    careerLoss
-  )}
-%2C%20HR%3A%20${encodeURIComponent(
-    LSHomeRuns
-  )}%2C%20Top Streak%3A%20${encodeURIComponent(LSStreakLongest)}%20 :::
-::::::::::Play%20Starting9%20here -->%20https://starting9.vercel.app/`;
-
   const openModal = () => {
     setIsModalOpen(true);
     setLSGameCount(parseAdd(LSGameCount, 1));
@@ -204,7 +185,6 @@ export default function App() {
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
     handleClickNext();
   };
 
@@ -582,12 +562,56 @@ export default function App() {
     setProcessTeam(selectedTeam);
   }
 
+  function copyText() {
+    const contestWon = "⚾";
+    const contestLoss = "⬜";
+
+    const share_WL_line = "Series W-L: " + seriesHits + "-" + seriesLoss;
+    const share_HR = "HR:" + contestWon.repeat(seriesHomeRuns);
+
+    const share_career = "Career: " + careerWinLoss + " HR:" + LSHomeRuns;
+
+    const line = share_WL_line + share_HR;
+
+    const shareLink = `https://starting9.vercel.app/`;
+    const text =
+      "My starting9 Stats: \n \n" +
+      share_WL_line +
+      " \n \n" +
+      share_HR +
+      " \n \n" +
+      share_career +
+      " \n \n" +
+      "Play Starting9 here -->  \n \n" +
+      shareLink;
+
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert("Stats Copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Failed to copy:", err);
+      });
+  }
+
+  function ShareButton({}) {
+    return (
+      <button class="buttonHelp" onClick={() => copyText()}>
+        Share
+      </button>
+    );
+  }
+
   function StatDiv() {
     return (
       <div>
         <table>
           <tr>
-            <td class="td-statHeader"> Tell your Statistics to Shut Up!</td>
+            <td class="td-statHeader">
+              Tell your Statistics to Shut Up! {"  "}
+              <ShareButton />
+            </td>
           </tr>
         </table>
         <table class="statTable td-statBox  alignRight">
@@ -639,9 +663,6 @@ export default function App() {
         </table>
         Series: {seriesName}
         <p></p>
-        <a href={shareLink} target="_blank" rel="noopener noreferrer">
-          Share Stats on BlueSky
-        </a>
         {displayTestData}
       </div>
     );
