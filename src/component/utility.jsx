@@ -204,32 +204,9 @@ function getTimeUntilDailyReset() {
 }
 
 function alertCountDown() {
-  const currentTime = new Date();
-
-  let timeLeftSS = 0;
-  let timeLeftMM = 0;
-  let timeLeftHH = 0;
-
-  function pad(value) {
-    return value.toString().padStart(2, "0");
-  }
-
-  let time = getTimeUntilDailyReset();
-  const countdown = setInterval(() => {
-    time = getTimeUntilDailyReset();
-    timeLeftSS = pad(time.seconds);
-    timeLeftMM = pad(time.minutes);
-    timeLeftHH = pad(time.hours);
-  }, 5000);
-
-  const hh = pad(currentTime.getHours());
-  const mm = pad(currentTime.getMinutes());
-  const ss = pad(currentTime.getSeconds());
-
-  let countDownText = "Today's Tasting is completed\n \n";
-  countDownText += "Next Tasting \n \n";
-  countDownText += `${timeLeftHH} : ${timeLeftMM} : ${timeLeftSS}`;
-  countDownText += " \n \n";
+  let countDownText = "This weeks games are completed\n \n";
+  countDownText += "Next Series will be on Monday \n \n";
+  countDownText += countDownText += " \n \n";
   countDownText += "Today's Stats \n \n";
   countDownText += "Average Score: " + "###stat1###";
   countDownText += " \n \n";

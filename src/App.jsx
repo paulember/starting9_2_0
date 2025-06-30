@@ -185,7 +185,6 @@ export default function App() {
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
     handleClickNext();
   };
 
@@ -299,6 +298,7 @@ export default function App() {
         window.location.href = window.location.href;
       }
       setGame((prevGame) => (prevGame % gameTotal) + 1);
+      setIsModalOpen(false);
     }
   }
 
