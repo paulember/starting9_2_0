@@ -185,6 +185,7 @@ export default function App() {
   };
 
   const closeModal = () => {
+    setIsModalOpen(false);
     handleClickNext();
   };
 
