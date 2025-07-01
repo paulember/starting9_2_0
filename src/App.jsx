@@ -178,7 +178,9 @@ export default function App() {
 
   const openModal = () => {
     setIsModalOpen(true);
-    setLSGameCount(parseAdd(LSGameCount, 1));
+    if (mostRecentMondayWW != julianSeriesCompletedWW) {
+      setLSGameCount(parseAdd(LSGameCount, 1));
+    }
     if (game >= 9) {
       localStorage.setItem("julianSeriesCompletedWW", mostRecentMondayWW);
     }
