@@ -174,11 +174,11 @@ function SplashDiv({ game }) {
         <div>
           *** If you enjoy Starting 9 please try our Wine Tasting Game{" "}
           <a
-            href="https://sofa-somm.vercel.app/"
+            href="https://sofasomm.vercel.app/"
             target="_blank"
             rel="noreferrer"
           >
-            Sofa Somm{" "}
+            SofaSomm{" "}
           </a>{" "}
           ***
         </div>

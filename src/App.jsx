@@ -613,7 +613,7 @@ export default function App() {
           <tr>
             <td class="td-statHeader">
               Tell your Statistics to Shut Up! {"  "}
-              <ShareButton />
+              {julianSeriesCompletedWW == mostRecentMondayWW && <ShareButton />}
             </td>
           </tr>
         </table>
@@ -797,9 +797,20 @@ export default function App() {
             target="_blank"
             rel="noreferrer"
           >
-            Sofa Somm{" "}
+            SofaSomm{" "}
           </a>{" "}
           ***
+        </div>
+        <div>
+          <p> </p>⚾ To see Starting9 in Action <p> </p>Check out Our Friends{" "}
+          <a
+            href="https://www.twitch.tv/twostrikenoise"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Two Strike Noise{" "}
+          </a>{" "}
+          ⚾
         </div>
         <h2 class="starting9Title ">
           <b>

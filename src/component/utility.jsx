@@ -221,14 +221,10 @@ function getTimeUntilDailyReset() {
 }
 
 function alertCountDown(julianNextSeries) {
-  let countDownText = "This weeks games are completed\n \n";
-  countDownText += "Next Series Available Monday: \n \n";
+  let countDownText = "You have Completed this Weeks Starting9\n \n";
+  countDownText += "Next Series of 9 New Games Scheduled for Monday: \n \n";
   countDownText += julianNextSeries + "\n \n";
-  countDownText += "Average Score: " + "###stat1###";
-  countDownText += " \n \n";
-  countDownText += "Total Notes: " + "###stat1###";
-  countDownText += " \n \n";
-  countDownText += "Bathazar: " + "###stat1###";
+
   alert(countDownText);
 }
 
