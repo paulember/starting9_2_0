@@ -95,6 +95,8 @@ export default function App() {
   const [seriesName, setSeriesName] = useState("");
   const seriesNameShort = seriesName.slice(2);
 
+  const LSweekAdjustment = localStorage.getItem("weekAdjustment") || "0";
+
   const [LSStreakCurrent, setLSStreakCurrent] = useState(0);
   const [LSStreakLongest, setLSStreakLongest] = useState(0);
   const [LSStreakBreaker, setLSStreakBreaker] = useState("none");
@@ -111,7 +113,9 @@ export default function App() {
   const [processTeam, setProcessTeam] = useState("");
 
   const teamNames = useFetchTeams();
-  const dataGames_24 = useFetchGames(mostRecentMondayWW);
+  const dataGames_24 = useFetchGames(
+    Number(mostRecentMondayWW) + Number(LSweekAdjustment)
+  );
 
   const [posButtonDisabled, setPosButtonDisabled] = useState(false);
   const appendAtBatHistory = (processTeam, ABResult) => {
@@ -659,9 +663,15 @@ export default function App() {
         </table>
         <table class="statTable td-statBox  alignRight">
           <tr>
-            <td> ###prevMON {mostRecentMondayWW} </td>
-            <td> #lastComp {julianSeriesCompletedWW} </td>
-            <td> #game {game} </td>
+            <td>
+              {" "}
+              ###prevMON {mostRecentMondayWW}
+              #lastComp {julianSeriesCompletedWW}{" "}
+            </td>
+            <td>
+              {" "}
+              #game {game} / #adj {LSweekAdjustment}{" "}
+            </td>
           </tr>
         </table>
         Series: {seriesName}
@@ -690,7 +700,7 @@ export default function App() {
         <button className={nextGameButton} onClick={handleClickNext}>
           {startButtonLabel} {game !== 0 ? game : null}
         </button>
-        &emsp; {seriesNameShort}
+        &emsp; {seriesNameShort} {LSweekAdjustment}
         <button className={buttonHelpClass} onClick={handleClickHelp}>
           {game !== 0 ? "About" : null}
         </button>

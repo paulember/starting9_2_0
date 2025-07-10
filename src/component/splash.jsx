@@ -51,11 +51,23 @@ function handleClearClick() {
 function handleClearDateClick() {
   if (
     confirm(
-      "Press OK to Clear Your SofaSomm Cache.\n \n THIS WILL REMOVE ALL RECORDS OF YOUR PREVIOUS TASTINGS. \n \n Press Cancel to return to the Splash Screen. "
+      "Press OK to Clear Your Starting9 DT Cache.\n \n THIS WILL REMOVE ALL RECORDS OF PREVIOUS GAMES. \n \n Press Cancel to return to the Splash Screen. "
     )
   ) {
     localStorage.removeItem("julianSeriesCompletedWW", 0);
   } else {
+  }
+}
+
+function handleWkToggle() {
+  const code = prompt(
+    "To CLEAR your Starting9 WK Cache, enter the 4-digit code: 1234.\n\nTHIS WILL REMOVE ALL RECORDS OF YOUR PREVIOUS GAMES.\n\nLeave blank or press Cancel to return to the Splash Screen."
+  );
+
+  if (code === "5252") {
+    localStorage.setItem("weekAdjustment", 1);
+  } else {
+    localStorage.setItem("weekAdjustment", 0);
   }
 }
 
@@ -201,6 +213,10 @@ function SplashDiv({ game }) {
         <button class="resetButton" onClick={handleClearDateClick}>
           {" "}
           DT
+        </button>
+        <button class="resetButton" onClick={handleWkToggle}>
+          {" "}
+          +WK
         </button>
       </div>
     );
