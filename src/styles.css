@@ -14,6 +14,10 @@
   float: right;
 }
 
+.buttonNone {
+  display: none;
+}
+
 .divDisplayBlock {
   width: 100%;
   background-color: lightblue;
