@@ -582,14 +582,14 @@ export default function App() {
 
     const shareLink = `https://starting9.vercel.app/`;
     const text =
-      "My starting9 Stats: \n \n" +
+      "My starting9 Stats: \n" +
       share_WL_line +
-      " \n \n" +
+      " \n" +
       share_HR +
-      " \n \n" +
+      " \n" +
       share_career +
       " \n \n" +
-      "Play Starting9 here -->  \n \n" +
+      "Play Starting9 here --> \n" +
       shareLink;
 
     navigator.clipboard
@@ -700,7 +700,8 @@ export default function App() {
         <button className={nextGameButton} onClick={handleClickNext}>
           {startButtonLabel} {game !== 0 ? game : null}
         </button>
-        &emsp; {seriesNameShort} {LSweekAdjustment}
+        &emsp; {seriesNameShort}{" "}
+        {LSweekAdjustment != 0 && <>{LSweekAdjustment}</>}
         <button className={buttonHelpClass} onClick={handleClickHelp}>
           {game !== 0 ? "About" : null}
         </button>
