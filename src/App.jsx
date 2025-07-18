@@ -12,6 +12,7 @@ import {
   dataPos,
   getOutType,
   updateClass,
+  convertToMMMDD,
   parseSubtract,
   getJulianDate,
   getMondayWWFromJulian,
@@ -362,7 +363,7 @@ export default function App() {
 
     setPosButtonDisabled(false);
     setAtBatHistory([]);
-    setGameResult("There is no Joy in Mudville");
+    setGameResult("😢  There is no Joy in Mudville  😢");
     setShowHideGameDetailsDiv("Hide ");
     setDivBlockNone("divDisplayBlock");
 
@@ -504,7 +505,7 @@ export default function App() {
       if (targetTeam.includes(processTeam)) {
         setLSAtBats((prevVal) => parseInt(prevVal, 10) + 1);
         appendAtBatHistory(processTeam, getHitType());
-        setGameResult("Mudville Wins!");
+        setGameResult("⚾⚾⚾Mudville Wins ⚾⚾⚾");
 
         openModal();
       } else {
@@ -572,13 +573,11 @@ export default function App() {
   function copyText() {
     const contestWon = "⚾";
     const contestLoss = "⬜";
-
-    const share_WL_line = "Series W-L: " + seriesHits + "-" + seriesLoss;
+    const mmmdd = convertToMMMDD(seriesNameShort);
+    const share_WL_line = mmmdd + " W-L: " + seriesHits + "-" + seriesLoss;
     const share_HR = "HR:" + contestWon.repeat(seriesHomeRuns);
 
     const share_career = "Career: " + careerWinLoss + " HR:" + LSHomeRuns;
-
-    const line = share_WL_line + share_HR;
 
     const shareLink = `https://starting9.vercel.app/`;
     const text =
@@ -779,12 +778,13 @@ export default function App() {
           <div>
             {atBatHistory.length > 0 && (
               <div>
-                <h3 class="modalHit">
-                  <div class="seriesLine">
-                    {" "}
-                    Series {seriesName}: Game {game}{" "}
+                <h3
+                  class={gameResult.includes("Wins") ? "modalHit" : "modalOut"}
+                >
+                  <div className="seriesLine">
+                    Series {seriesName}: Game {game}
                   </div>
-                  <p> {atBatHistory[atBatHistory.length - 1].ABResult} </p>
+                  <p>{atBatHistory[atBatHistory.length - 1].ABResult}</p>
                   <p>{gameResult}</p>
                 </h3>
               </div>

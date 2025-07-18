@@ -73,11 +73,34 @@
   height: 75px;
 }
 
+.modalOut {
+  color: peachpuff;
+
+  background-image: linear-gradient(180deg, pink, red);
+  text-align: center;
+  text-shadow: 1px 1px 9px black;
+  border-color: orange;
+  border-radius: 10px;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 75px;
+}
+
 .modalHit p {
   margin: 3px;
 }
 
 .modalHit :last-child {
+  margin-bottom: 10px;
+}
+
+.modalOut p {
+  margin: 3px;
+}
+
+.modalOut :last-child {
   margin-bottom: 10px;
 }
 

@@ -86,23 +86,29 @@ const updateClass = (
   });
 };
 
-//
-// return classArray.map((classItem, index) => {
-//   if (classItem === "td-posNewSelected") {
-//     return "td-posSelected";
-//   } else {
-//     const vennGamePosition = getVennGameFromGIT(game, dataGames_24)[`${prefix}${index + 1}_Pos`];
-//     const vennGamePositionUp = vennGamePosition ? vennGamePosition.toUpperCase() : '';
+function convertToMMMDD(dateStr) {
+  const [day, month, year] = dateStr.split("-").map(Number);
 
-//     if (processPosition === vennGamePositionUp) {
-//       return "td-posNewSelected";
-//     } else {
-//       return classItem;
-//     }
-//   }
-// });
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
-// };
+  const mmm = monthNames[month - 1];
+  const dd = String(day).padStart(2, "0");
+
+  return `${mmm}${dd}`;
+}
 
 function parseSubtract(a, b) {
   return a - b;
@@ -236,6 +242,7 @@ export {
   dataPos,
   getOutType,
   updateClass,
+  convertToMMMDD,
   parseSubtract,
   getJulianDate,
   getMondayWWFromJulian,
