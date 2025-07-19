@@ -10,13 +10,6 @@ function StreakStats({ streakCurrent, streakLongest, streakBreaker }) {
 
         <td colspan="5">For Future Use {streakLongest}</td>
       </tr>
-
-      <tr>
-        <td colspan="10" style={{ textAlign: "left" }}>
-          {" "}
-          Broken By: {streakBreaker}{" "}
-        </td>
-      </tr>
     </>
   );
 }

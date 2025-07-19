@@ -160,7 +160,15 @@ table {
   border: 2px solid darkgreen;
 }
 
+.td-atBatNumber {
+  font-size: 10px;
+  background-color: lightgrey;
+  width: 15px;
+  height: 10px;
+}
+
 .td-atBatHeader {
+  font-size: 12px;
   background-color: lightgrey;
   width: 320px;
   height: 10px;
@@ -169,14 +177,14 @@ table {
 .td-atBatHistoryTeam {
   font-size: 11px;
   border: 2px solid darkgreen;
-  width: 200px;
+  width: 215px;
   height: 7px;
 }
 .td-atBatHistoryResult {
   font-size: 11px;
 
   border: 2px solid darkgreen;
-  width: 100px;
+  width: 80px;
   height: 7px;
   font-weight: bold;
 }

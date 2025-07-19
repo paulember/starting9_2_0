@@ -660,22 +660,6 @@ export default function App() {
             streakBreaker={LSStreakBreaker}
           />
         </table>
-        <table class="statTable td-statBox  alignRight">
-          <tr>
-            <td>
-              {" "}
-              ###prevMON {mostRecentMondayWW}
-              #lastComp {julianSeriesCompletedWW}{" "}
-            </td>
-            <td>
-              {" "}
-              #game {game} / #adj {LSweekAdjustment}{" "}
-            </td>
-          </tr>
-        </table>
-        Series: {seriesName}
-        <p></p>
-        {displayTestData}
       </div>
     );
   }
@@ -815,7 +799,7 @@ export default function App() {
         <div>
           <p> </p>⚾ To see Starting9 in Action <p> </p>Check out Our Friends{" "}
           <a
-            href="https://www.twitch.tv/twostrikenoise"
+            href="https://www.youtube.com/@twostrikenoise/streams"
             target="_blank"
             rel="noreferrer"
           >
@@ -823,11 +807,7 @@ export default function App() {
           </a>{" "}
           ⚾
         </div>
-        <h2 class="starting9Title ">
-          <b>
-            <i> Starting 9 </i>
-          </b>
-        </h2>
+        <h6 class="starting9Title ">---</h6>
       </Modal>
     </div>
   );

@@ -1,6 +1,5 @@
-import React from 'react';
+import React from "react";
 
-// Header component
 function AtBatHeader({ game }) {
   return (
     <table>
@@ -13,13 +12,12 @@ function AtBatHeader({ game }) {
   );
 }
 
-// At bat row component
 function AtBatRow({ index, atBatHistoryItem }) {
   return (
     <table key={index}>
       <tbody>
         <tr>
-          <td>{index + 1}</td>
+          <td className="td-atBatNumber"> {index + 1}</td>
           <td className="td-atBatHistoryTeam">
             {atBatHistoryItem ? atBatHistoryItem.processTeam : ""}
           </td>
@@ -32,7 +30,6 @@ function AtBatRow({ index, atBatHistoryItem }) {
   );
 }
 
-// At bat history component
 function AtBatHistoryDiv({ game, atBatHistory }) {
   return (
     <div>
@@ -40,7 +37,7 @@ function AtBatHistoryDiv({ game, atBatHistory }) {
       {[...Array(5)].map((_, index) => (
         <AtBatRow
           key={index}
-          index={index}     
+          index={index}
           atBatHistoryItem={atBatHistory[index]}
         />
       ))}
