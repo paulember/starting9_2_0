@@ -87,7 +87,7 @@ const updateClass = (
 };
 
 function convertToMMMDD(dateStr) {
-  const [day, month, year] = dateStr.split("-").map(Number);
+  const [year, month, day] = dateStr.split("-").map(Number);
 
   const monthNames = [
     "Jan",

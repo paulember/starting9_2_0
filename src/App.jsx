@@ -588,7 +588,7 @@ export default function App() {
       " \n" +
       share_career +
       " \n \n" +
-      "Play Starting9 here --> \n" +
+      "Play #starting9 here --> \n" +
       shareLink;
 
     navigator.clipboard
