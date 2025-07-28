@@ -106,7 +106,7 @@ function BoxRHE({ game, dataGames_24 }) {
         <table>
           <tbody>
             <tr>
-              <td className="splashQuote">{gameMessage}</td>
+              <td className="gameQuote">{gameMessage}</td>
             </tr>
           </tbody>
         </table>

@@ -576,8 +576,17 @@ export default function App() {
     const mmmdd = convertToMMMDD(seriesNameShort);
     const share_WL_line = mmmdd + " W-L: " + seriesHits + "-" + seriesLoss;
     const share_HR = "HR:" + contestWon.repeat(seriesHomeRuns);
+    const share_PCT = "AVG/SLG: " + seriesAVG + "/" + seriesSLG;
 
-    const share_career = "Career: " + careerWinLoss + " HR:" + LSHomeRuns;
+    const share_career =
+      "Career: " +
+      careerWinLoss +
+      " HR:" +
+      LSHomeRuns +
+      " " +
+      careerAVG +
+      "/" +
+      careerSLG;
 
     const shareLink = `https://starting9.vercel.app/`;
     const text =
@@ -585,6 +594,8 @@ export default function App() {
       share_WL_line +
       " \n" +
       share_HR +
+      " \n" +
+      share_PCT +
       " \n" +
       share_career +
       " \n \n" +
