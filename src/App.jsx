@@ -95,6 +95,7 @@ export default function App() {
   const [LSGameCount, setLSGameCount] = useState(0);
   const [seriesName, setSeriesName] = useState("");
   const seriesNameShort = seriesName.slice(2);
+  const mmmdd = convertToMMMDD(seriesNameShort);
 
   const LSweekAdjustment = localStorage.getItem("weekAdjustment") || "0";
 
@@ -573,7 +574,6 @@ export default function App() {
   function copyText() {
     const contestWon = "⚾";
     const contestLoss = "⬜";
-    const mmmdd = convertToMMMDD(seriesNameShort);
     const share_WL_line = mmmdd + " W-L: " + seriesHits + "-" + seriesLoss;
     const share_HR = "HR:" + contestWon.repeat(seriesHomeRuns);
     const share_PCT = "AVG/SLG: " + seriesAVG + "/" + seriesSLG;
