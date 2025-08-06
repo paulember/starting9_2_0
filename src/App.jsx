@@ -422,8 +422,15 @@ export default function App() {
           let awayTeamData = await getTeamData(game, dataGames_24, "AWAY");
           let homeTeamData = await getTeamData(game, dataGames_24, "HOME");
 
-          if (Number(AwayRunsScored) <= Number(HomeRunsScored)) {
-            setTargetTeam([HomeTeam, homeTeamData.team_2, homeTeamData.team_3]);
+          if (Number(AwayRunsScored) == Number(HomeRunsScored)) {
+            setTargetTeam([
+              HomeTeam,
+              homeTeamData.team_2,
+              homeTeamData.team_3,
+              AwayTeam,
+              awayTeamData.team_2,
+              awayTeamData.team_3,
+            ]);
             setLosingTeamHomeAway("AWAY");
             setLosingTeam([
               awayTeamData.nickname,
@@ -432,14 +439,33 @@ export default function App() {
               awayTeamData.team_3,
             ]);
           } else {
-            setTargetTeam([AwayTeam, awayTeamData.team_2, awayTeamData.team_3]);
-            setLosingTeamHomeAway("HOME");
-            setLosingTeam([
-              homeTeamData.nickname,
-              HomeTeam,
-              homeTeamData.team_2,
-              homeTeamData.team_3,
-            ]);
+            if (Number(AwayRunsScored) < Number(HomeRunsScored)) {
+              setTargetTeam([
+                HomeTeam,
+                homeTeamData.team_2,
+                homeTeamData.team_3,
+              ]);
+              setLosingTeamHomeAway("AWAY");
+              setLosingTeam([
+                awayTeamData.nickname,
+                AwayTeam,
+                awayTeamData.team_2,
+                awayTeamData.team_3,
+              ]);
+            } else {
+              setTargetTeam([
+                AwayTeam,
+                awayTeamData.team_2,
+                awayTeamData.team_3,
+              ]);
+              setLosingTeamHomeAway("HOME");
+              setLosingTeam([
+                homeTeamData.nickname,
+                HomeTeam,
+                homeTeamData.team_2,
+                homeTeamData.team_3,
+              ]);
+            }
           }
         } catch (error) {
           console.error("Error fetching data:", error);
