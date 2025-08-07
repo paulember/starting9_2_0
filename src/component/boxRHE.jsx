@@ -9,6 +9,7 @@ function BoxRHE({ game, dataGames_24 }) {
   let homeRHELine = [0, 0, 0];
   let linkBox = "https://sabr.org/gamesproject";
   let gameMessage = "";
+  let gameMessageLink = "";
 
   if (dataGames_24 && typeof dataGames_24 === "object") {
     const vennGame = getVennGameFromGIT(game, dataGames_24);
@@ -17,6 +18,8 @@ function BoxRHE({ game, dataGames_24 }) {
       linkSABR = vennGame.LinkSabr;
       linkAuthor = vennGame.Author;
       gameMessage = vennGame?.gameMessage ?? "";
+      gameMessageLink = vennGame?.gameMessageLink ?? "";
+
       awayRHELine = [
         vennGame.AwayRunsScored || 0,
         vennGame.AwayHits || 0,
@@ -106,7 +109,19 @@ function BoxRHE({ game, dataGames_24 }) {
         <table>
           <tbody>
             <tr>
-              <td className="gameQuote">{gameMessage}</td>
+              <td className="gameQuote">
+                {gameMessageLink ? (
+                  <a
+                    href={gameMessageLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {gameMessage}
+                  </a>
+                ) : (
+                  gameMessage
+                )}
+              </td>
             </tr>
           </tbody>
         </table>
