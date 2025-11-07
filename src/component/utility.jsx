@@ -167,7 +167,7 @@ function getMondayWWFromJulian(julianStr) {
   const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
   const weekNumber = Math.floor(diffDays / 7) + 1;
 
-  return weekNumber;
+  return String(weekNumber).padStart(2, "0");
 }
 
 function addDaysToJulian(julianStr, daysToAdd) {
