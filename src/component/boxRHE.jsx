@@ -15,8 +15,8 @@ function BoxRHE({ game, dataGames_24 }) {
     const vennGame = getVennGameFromGIT(game, dataGames_24);
 
     if (vennGame) {
-      linkSABR = vennGame.LinkSabr;
-      linkAuthor = vennGame.Author;
+      linkSABR = vennGame?.LinkSabr ?? linkSABR;
+      linkAuthor = vennGame?.Author ?? linkAuthor;
       gameMessage = vennGame?.gameMessage ?? "";
       gameMessageLink = vennGame?.gameMessageLink ?? "";
 
@@ -30,7 +30,7 @@ function BoxRHE({ game, dataGames_24 }) {
         vennGame.HomeHits || 0,
         vennGame.HomeErrors || 0,
       ];
-      linkBox = vennGame.LinkBox;
+      linkBox = vennGame?.LinkBox ?? linkBox;
     } else {
       console.warn("Venn game data is missing for the specified game.");
     }
