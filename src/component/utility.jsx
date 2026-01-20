@@ -170,6 +170,27 @@ function getMondayWWFromJulian(julianStr) {
   return String(weekNumber).padStart(2, "0");
 }
 
+function getMondayYYYY_MM_DDFromJulian(julianStr) {
+  const [yearStr, julianStrNum] = julianStr.split("_");
+  const year = parseInt(yearStr, 10);
+  const julianDay = parseInt(julianStrNum, 10);
+
+  // Create date from year + Julian day
+  const date = new Date(year, 0);
+  date.setDate(julianDay);
+
+  // Find Monday of that week
+  const day = date.getDay() || 7; // Sunday → 7
+  const monday = new Date(date);
+  monday.setDate(date.getDate() - (day - 1));
+
+  const yyyy = monday.getFullYear();
+  const mm = String(monday.getMonth() + 1).padStart(2, "0");
+  const dd = String(monday.getDate()).padStart(2, "0");
+
+  return `${yyyy}-${mm}-${dd}`;
+}
+
 function addDaysToJulian(julianStr, daysToAdd) {
   const [yearStr, dayStr] = julianStr.split("_");
   const year = parseInt(yearStr, 10);
@@ -247,6 +268,7 @@ export {
   getJulianDate,
   getMondayWWFromJulian,
   getMostRecentMondayJulian,
+  getMondayYYYY_MM_DDFromJulian,
   addDaysToJulian,
   julianToMMDDYYYY,
   alertCountDown,

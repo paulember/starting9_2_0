@@ -16,6 +16,7 @@ import {
   parseSubtract,
   getJulianDate,
   getMondayWWFromJulian,
+  getMondayYYYY_MM_DDFromJulian,
   alertCountDown,
   addDaysToJulian,
   getMostRecentMondayJulian,
@@ -53,6 +54,8 @@ export default function App() {
     addDaysToJulian(getMostRecentMondayJulian(julianDate), 8)
   );
   const mostRecentMondayWW = getMondayWWFromJulian(julianDate);
+
+  const seriesName = getMondayYYYY_MM_DDFromJulian(julianDate);
 
   const [lineupColorAway, setLineupColorAway] = useState("white");
   const [lineupColorHome, setLineupColorHome] = useState("white");
@@ -93,7 +96,7 @@ export default function App() {
   const [LSMostRecentGameDate, setLSMostRecentGameDate] =
     useState("2025-01-01");
   const [LSGameCount, setLSGameCount] = useState(0);
-  const [seriesName, setSeriesName] = useState("");
+
   const seriesNameShort = seriesName.slice(2);
   const mmmdd = convertToMMMDD(seriesNameShort);
 
@@ -477,15 +480,6 @@ export default function App() {
   }, [game, dataGames_24, setLosingTeamHomeAway, setTargetTeam, setLosingTeam]);
 
   useEffect(() => {
-    const result = getVennGameFromGIT(game, dataGames_24);
-    if (result) {
-      setSeriesName(result.Series);
-    } else {
-      console.warn("Series not found for the given game.");
-    }
-  }, [game, dataGames_24]);
-
-  useEffect(() => {
     setAwaytdClass(
       updateClass(
         Array.from(awaytdClass),
@@ -556,7 +550,7 @@ export default function App() {
             break;
           case 2:
             setLSAtBats((prevVal) => parseInt(prevVal, 10) + 1);
-            appendAtBatHistory(processTeam, "Strike Out, 1 Out");
+            appendAtBatHistory(processTeam, "K: 1 Out");
             break;
           case 3:
             setLSAtBats((prevVal) => parseInt(prevVal, 10) + 1);
@@ -721,7 +715,7 @@ export default function App() {
           {startButtonLabel} {game !== 0 ? game : null}
         </button>
         &emsp; {seriesNameShort}{" "}
-        {LSweekAdjustment != 0 && <>{LSweekAdjustment}</>}
+        {LSweekAdjustment != 0 && <> + {LSweekAdjustment}</>}
         <button className={buttonHelpClass} onClick={handleClickHelp}>
           {game !== 0 ? "About" : null}
         </button>
