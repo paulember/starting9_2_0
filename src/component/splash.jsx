@@ -184,15 +184,22 @@ function SplashDiv({ game }) {
           on bluesky ***
         </div>
         <div>
-          *** If you enjoy Starting 9 please try our Wine Tasting Game{" "}
+          *** If you enjoy Starting 9 please try our DAILY WORD GAME{" "}
+          <a href="https://flip5.vercel.app/" target="_blank" rel="noreferrer">
+            <b> FLIP5 </b>{" "}
+          </a>{" "}
+          ***
+        </div>
+        <div>
+          <p> </p>⚾ To see Starting9 in Action <p> </p>Check out Our Friends{" "}
           <a
-            href="https://sofasomm.vercel.app/"
+            href="https://www.youtube.com/@twostrikenoise/streams"
             target="_blank"
             rel="noreferrer"
           >
-            SofaSomm{" "}
+            Two Strike Noise{" "}
           </a>{" "}
-          ***
+          ⚾
         </div>
         <h2 class="starting9Title ">
           {" "}

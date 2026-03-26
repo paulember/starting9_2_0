@@ -817,13 +817,9 @@ export default function App() {
           </div>
         </div>
         <div>
-          *** Try our Wine Tasting Game{" "}
-          <a
-            href="https://sofasomm.vercel.app/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            SofaSomm{" "}
+          *** Try our DAILY WORD GAME{" "}
+          <a href="https://flip5.vercel.app/" target="_blank" rel="noreferrer">
+            <b> FLIP5 </b>{" "}
           </a>{" "}
           ***
         </div>
